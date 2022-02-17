@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Lista Categoria</div>
+                <div class="card-header">Categories</div>
                
                 <div class="card-body">
                     <div class="div">
