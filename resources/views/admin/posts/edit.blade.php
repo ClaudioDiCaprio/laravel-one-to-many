@@ -13,8 +13,8 @@
                         @csrf
                         @method("PUT")
                         <div class="form-group">
-                          <label for="title">Titolo</label>
-                          <input type="text" class="form-control @error ('title') is-invalid @enderror" id="title" name="title" placeholder="Inserisci il titolo del post" value="{{old('title', $post->title)}}">
+                          <label for="title">Title</label>
+                          <input type="text" class="form-control @error ('title') is-invalid @enderror" id="title" name="title" placeholder="Insert post's title" value="{{old('title', $post->title)}}">
                           @error('title')
                             <div class="alert-alert-danger">{{$message}}</div>
                           @enderror
@@ -22,7 +22,7 @@
                         
                         <div class="form-group">
                             <label for="content">Contenuto</label>
-                            <textarea class="form-control @error ('content') is-invalid @enderror" id="content" name="content" rows="6" placeholder="Inserisci il contenuto">{{old('content', $post->content)}}</textarea>
+                            <textarea class="form-control @error ('content') is-invalid @enderror" id="content" name="content" rows="6" placeholder="Insert content">{{old('content', $post->content)}}</textarea>
                             @error('content')
                                 <div class="alert-alert-danger">{{$message}}</div>
                             @enderror
@@ -32,7 +32,7 @@
                             <select name="category_id" class="custom-select @error ('category_id') is-invalid @enderror" id="category">
                                 <option value="">Select a Category</option>
                                 @foreach ($categories as$category)
-                                    <option value="{{$category->id}}" {{old("category_id",$post->category_id) == $category->id ? "selected" : ""}}>{{$category->name}}></option>
+                                    <option value="{{$category->id}}" {{old("category_id",$post->category_id) == $category->id ? "selected" : ""}}>{{$category->name}}</option>
                                 @endforeach
                         </select>
                         @error('category_id')
