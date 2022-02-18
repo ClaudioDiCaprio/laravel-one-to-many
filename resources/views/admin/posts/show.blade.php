@@ -11,7 +11,7 @@
                 </div>
 
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-3 d-flex justify-content-center">
                             @if ($post->image)
                                 <img src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}">
                             @endif
