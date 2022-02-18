@@ -9,7 +9,7 @@
                 <div class="card-header">Posts's List</div>
                
                 <div class="card-body">
-                    <form action="{{route("posts.store")}}" method="POST">
+                    <form action="{{route("posts.store")}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                           <label for="title">Title</label>
@@ -40,11 +40,15 @@
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input @error('published') is-invalid @enderror" id="published" name="published" {{old('published') ? 'checked' : ''}}>
                             <label class="form-check-lable" for="published">Publish</label>    
+                            @error('published')
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
                         </div>
-                        @error('published')
-                        <div class="alert alert-danger">{{$message}}</div>
-                        @enderror
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input " id="image" name="image">
+                            <label class="custom-file-label " for="image">Add an image</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Create</button>
                       </form>
                 </div>
             </div>

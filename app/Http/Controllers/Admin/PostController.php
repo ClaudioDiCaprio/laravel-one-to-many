@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Category;
 
@@ -14,7 +15,8 @@ class PostController extends Controller
             "title" => "required|string|max:100",
             "content" => "required",
             "published" =>"sometimes|accepted",
-            "category_id" => "nullable|exists:categories,id"
+            "category_id" => "nullable|exists:categories,id",
+            "image"=>"nullable|image|mimes:jpeg,bmp,png|max:2048"
     ];
     /**
      * Display a listing of the resource.
@@ -50,7 +52,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // $data = $request->all();
-
+        // dd($request->all());
         //validazione dei dati
         $request->validate($this->validationRule);
         //creazione del post
@@ -65,6 +67,9 @@ class PostController extends Controller
         $slug = Str::of($newPost->title)->slug("-");
         $count = 1;
 
+
+        //prendi il primo post il cui slug é uguale a $slug
+        //se e presente allora genero un nuovo slug aggiungendo -$count
         while( Post::where("slug", $slug)->first() ) {
             $slug = Str::of($newPost->title)->slug("-") . "-{$count}";
             $count++;
@@ -72,8 +77,14 @@ class PostController extends Controller
 
         $newPost->slug = $slug;
 
+        //Se presente salvo l'immagine 
+        if(isset($data['image'])){
+            $path_image = Storage::put("uploads",$data['image']);
+            $newPost->image = $path_image;
+        }
+
         $newPost->save(); 
-        //redirect al post 
+        //redirect al post appena creato
 
         return redirect()->route("posts.show",$newPost->id);
     }
