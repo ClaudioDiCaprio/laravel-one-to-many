@@ -55,8 +55,9 @@
                             @if ($post->image)
                                 <img id="uploadPreview" width="100" src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}">    
                             @endif
-                            <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image" onchange="PreviewImage();">
                             <label class="" for="image">Add an image</label>
+                            <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image" onchange="PreviewImage();">
+                            
 
                             <script type="text/javascript">
 

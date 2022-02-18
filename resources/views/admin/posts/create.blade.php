@@ -45,8 +45,22 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image">
-                            <label class="" for="image">Add an image</label>
+                                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200">   
+                                <label class="" for="image">Add an image</label>
+                                <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image" onchange="PreviewImage();">
+
+                            <script type="text/javascript">
+
+                                function PreviewImage() {
+                                    var oFReader = new FileReader();
+                                    oFReader.readAsDataURL(document.getElementById("image").files[0]);
+                            
+                                    oFReader.onload = function (oFREvent) {
+                                        document.getElementById("uploadPreview").src = oFREvent.target.result;
+                                    };
+                                };
+                            
+                            </script>
                             @error('image')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
