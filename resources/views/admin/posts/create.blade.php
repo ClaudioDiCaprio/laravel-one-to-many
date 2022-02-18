@@ -44,9 +44,12 @@
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input " id="image" name="image">
-                            <label class="custom-file-label " for="image">Add an image</label>
+                        <div class="form-group">
+                            <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image">
+                            <label class="" for="image">Add an image</label>
+                            @error('image')
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Create</button>
                       </form>

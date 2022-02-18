@@ -11,6 +11,11 @@
                 </div>
 
                     <div class="card-body">
+                        <div class="mb-3">
+                            @if ($post->image)
+                                <img src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}">
+                            @endif
+                        </div>
                         <div class="mb-3 ">
                             <a href="{{route("posts.edit",$post->id)}}"><button type="button" class="btn btn-warning">Modify</button></a>
                                 <form action="{{route('posts.destroy', $post->id)}}" method="POST">

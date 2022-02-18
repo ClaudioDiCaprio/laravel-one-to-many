@@ -16,10 +16,10 @@ class PostController extends Controller
             "content" => "required",
             "published" =>"sometimes|accepted",
             "category_id" => "nullable|exists:categories,id",
-            "image"=>"nullable|image|mimes:jpeg,bmp,png|max:2048"
+            "image"=>"nullable|mimes:jpeg,jpg,bmp,png|max:2048"
     ];
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.s
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,7 +57,8 @@ class PostController extends Controller
         $request->validate($this->validationRule);
         //creazione del post
         $data = $request->all();
-
+        // dd($request->file('image'));
+        // dd($data);
         $newPost = new Post();
         $newPost->title = $data["title"];
         $newPost->content = $data["content"];
@@ -149,6 +150,17 @@ class PostController extends Controller
         $post->content = $data["content"];
         $post->category_id = $data["category_id"];
         $post->published = isset($data["published"]);
+
+
+        //salvo l'immagine se presente e cancello la vecchia
+        if( isset($data['image']) ){
+
+            //cancello l'immagine
+            Storage::delete($post->image);
+            //salvo la nuova immagine
+            $path_image = Storage::put("uploads",$data['image']);
+            $post->image = $path_image;
+        }
 
 
         $post->save(); 

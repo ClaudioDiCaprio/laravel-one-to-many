@@ -9,7 +9,7 @@
                 <div class="card-header">Modify {{$post->title}}</div>
                
                 <div class="card-body">
-                    <form action="{{route("posts.update", $post->id)}}" method="POST">
+                    <form action="{{route("posts.update", $post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group">
@@ -51,7 +51,18 @@
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror  
                         </div>
-                        
+                        <div class="form-group">
+                            @if ($post->image)
+
+                            <img width="100" src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}">
+                                
+                            @endif
+                            <input type="file" class=" @error('image') is-invalid @enderror " id="image" name="image">
+                            <label class="" for="image">Add an image</label>
+                            @error('image')
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary">Modify</button>
                       </form>
                 </div>
